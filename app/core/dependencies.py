@@ -26,3 +26,6 @@ def getLoadEmailService():
     gemini = Gemini()
     loadEmails = LoadEmails(readEmails=readEmails, emailRepository=emailRepository, gemini=gemini)
     return loadEmails
+def getEmailClass():
+    emailAPI = EmailAPI
+    return emailAPI

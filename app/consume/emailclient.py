@@ -29,32 +29,32 @@ class EmailAPI():
         if not self.credentials or not self.credentials.valid:
             if self.credentials and self.credentials.expired and self.credentials.refresh_token:
                 self.credentials.refresh(Request())
-            else:
-                client_config = {
-                "installed": {
-                    "client_id": os.getenv("GMAIL_CLIENT_ID"),
-                    "client_secret": os.getenv("GMAIL_CLIENT_SECRET"),
-                    "project_id": os.getenv("GMAIL_PROJECT_ID"),
-                    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-                    "token_uri": "https://oauth2.googleapis.com/token",
-                    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-                    "redirect_uris": [os.getenv("URL")]
-                    }
-                }
-                flow = InstalledAppFlow.from_client_config(client_config=client_config,
-                                                                 scopes=self.SCOPES)
-                flow.redirect_uri = os.getenv("URL")
-                auth_url, _ = flow.authorization_url(access_type="offline", include_granted_scopes="true")
-                print(f"Login URL: \n{auth_url}")
-                url = input("URL: ")
-                flow.fetch_token(authorization_response=url)
-                print(self.credentials.to_json())
-    def getEmailClient(self):
         if not self.credentials:
-            self.getCredentials()
+            client_config = {
+            "installed": {
+                "client_id": os.getenv("GMAIL_CLIENT_ID"),
+                "client_secret": os.getenv("GMAIL_CLIENT_SECRET"),
+                "project_id": os.getenv("GMAIL_PROJECT_ID"),
+                "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+                "token_uri": "https://oauth2.googleapis.com/token",
+                "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                "redirect_uris": [os.getenv("URL")]
+                }
+            }
+            flow = InstalledAppFlow.from_client_config(client_config=client_config,
+                                                                scopes=self.SCOPES)
+            flow.redirect_uri = os.getenv("URL")
+            auth_url, _ = flow.authorization_url(access_type="offline", include_granted_scopes="true")
+            print(f"Login URL: \n{auth_url}")
+            return None
+        return self.credentials
+    def getEmailClient(self):
+        creds = self.getCredentials()
+        if not creds:
+            return None
         try:
             # Call the Gmail API
-            service = build("gmail", "v1", credentials=self.credentials)
+            service = build("gmail", "v1", credentials=creds)
             return service
 
         except HttpError as error:
