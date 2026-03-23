@@ -5,9 +5,9 @@ config.setupenv()
 from tasks.backgroundtask import StartScheduler
 from endpoints import agente
 from endpoints import dashboard
-from middleware.cors import CORSMiddleware
-from staticfiles import StaticFiles
-from responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+
 from pathlib import Path
 import uvicorn
 import multiprocessing
@@ -23,7 +23,7 @@ base_dir = Path(__file__).resolve().parent
 app = FastAPI(lifespan=lifespan)
 app.include_router(router=agente.router)
 app.include_router(router=dashboard.router)
-app.mount("/", StaticFiles(directory=base_dir/"app"/"dist", html=True), name="assets")
+app.mount("/", StaticFiles(directory=base_dir/"dist", html=True), name="assets")
 app.add_middleware(
     CORSMiddleware,
     #Cambiar despues para mejor seguridad
