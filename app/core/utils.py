@@ -21,19 +21,26 @@ def clean_html(raw_html):
         return clean_text.strip()
 def get_senders():
         try:
-                if getattr(sys, 'frozen', False):
-                # Ruta base: la carpeta donde está el exe
-                        base_path = os.path.dirname(sys.executable)
+                # 1. Intentar primero la ruta oficial de Render para secretos
+                # Render coloca los archivos en /etc/secrets/nombre_archivo
+                render_secret_path = os.path.join("/etc", "secrets", "senders.txt")
+
+                if os.path.exists(render_secret_path):
+                        file_path = render_secret_path
                 else:
-                # Ruta base: la carpeta del script
+                        # 2. Fallback para desarrollo local (tu código original simplificado)
                         base_path = os.path.dirname(os.path.abspath(__file__))
-                filePath = os.path.join(base_path, "senders.txt")
+                        file_path = os.path.join(base_path, "senders.txt")
                 senders = []
-                with open(filePath, "r") as file:
+                with open(file_path, "r") as file:
                         for line in file:
                                 sender = line.strip()
-                                senders.append(sender)
+                                if sender:  # Evita agregar líneas vacías
+                                        senders.append(sender)
                 return senders
+        except FileNotFoundError:
+                print(f"Error: No se encontró el archivo en {file_path}")
+                return []
         except FileNotFoundError:
                 logger.critical("There is no senders.txt file. You have to create one.")
                 input("Press any key to exit")

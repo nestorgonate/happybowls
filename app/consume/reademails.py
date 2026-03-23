@@ -64,7 +64,7 @@ class ReadEmails():
         return data
     def readEmails(self):
         senders = get_senders()
-        self.logger.info("Senders recieved")
+        self.logger.info(f"Senders recieved{senders}")
         #Output = from:email OR from:email
         from_filter = f"({' OR '.join([f'from:{sender}' for sender in senders])})"
         try:
