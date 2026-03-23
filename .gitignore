@@ -1,0 +1,12 @@
+config.json
+__pycache__
+token.json
+credentials.json
+node_modules
+dist
+Output
+*.pfx
+*.spec
+build
+logs/
+.env
