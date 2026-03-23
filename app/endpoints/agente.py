@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from google.api_core import exceptions
-from app.core.dependencies import getEmailService
+from core.dependencies import getEmailService
 router = APIRouter(
     prefix="/api",
     tags=["Gemini endpoints"]

@@ -1,12 +1,12 @@
-from app.services.emailservice import EmailService
-from app.consume.emailclient import EmailAPI
-from app.consume.reademails import ReadEmails
-from app.repositories.emailrepository import EmailRepository
-from app.agent.geminiapi import Gemini
-from app.cqrs.command import CommandSide
-from app.cqrs.queries import QuerySide
-from app.core.database import Mongo
-from app.services.loadEmails import LoadEmails
+from services.emailservice import EmailService
+from consume.emailclient import EmailAPI
+from consume.reademails import ReadEmails
+from repositories.emailrepository import EmailRepository
+from agent.geminiapi import Gemini
+from cqrs.command import CommandSide
+from cqrs.queries import QuerySide
+from core.database import Mongo
+from services.loadEmails import LoadEmails
 def getEmailService():
     emailAPI = EmailAPI()
     readEmails = ReadEmails(emailAPI=emailAPI)

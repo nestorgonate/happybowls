@@ -1,6 +1,6 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime
-from app.core.dependencies import getLoadEmailService
+from core.dependencies import getLoadEmailService
 loadEmails = getLoadEmailService()
 async def StartScheduler():
     scheduler = AsyncIOScheduler()

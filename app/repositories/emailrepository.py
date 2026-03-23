@@ -1,5 +1,5 @@
-from app.cqrs.command import CommandSide
-from app.cqrs.queries import QuerySide
+from cqrs.command import CommandSide
+from cqrs.queries import QuerySide
 from datetime import datetime
 class EmailRepository():
     def __init__(self, commandSide: CommandSide, querySide: QuerySide=None):

@@ -1,4 +1,4 @@
-from app.core.database import Mongo
+from core.database import Mongo
 import logging
 from pymongo.errors import DuplicateKeyError, BulkWriteError
 class CommandSide():

@@ -1,6 +1,6 @@
-from app.consume.reademails import ReadEmails
-from app.repositories.emailrepository import EmailRepository
-from app.agent.geminiapi import Gemini
+from consume.reademails import ReadEmails
+from repositories.emailrepository import EmailRepository
+from agent.geminiapi import Gemini
 import logging
 import json
 from datetime import datetime

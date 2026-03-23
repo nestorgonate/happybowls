@@ -1,13 +1,13 @@
 from googleapiclient.errors import HttpError
 import logging
 import base64
-from app.core.utils import clean_html
+from core.utils import clean_html
 from datetime import datetime
 from email.utils import parsedate_to_datetime
 from zoneinfo import ZoneInfo
-from app.core.utils import get_senders
-from app.consume.emailclient import EmailAPI
-from app.core.utils import read_bytes_pdf
+from core.utils import get_senders
+from consume.emailclient import EmailAPI
+from core.utils import read_bytes_pdf
 class ReadEmails():
     def __init__(self, emailAPI: EmailAPI):
         self.emailAPI = emailAPI

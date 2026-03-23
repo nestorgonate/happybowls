@@ -1,9 +1,9 @@
 from fastapi import APIRouter, HTTPException, Depends
-from app.core.dependencies import getEmailService
-from app.models.dashboard import Dashboard
+from core.dependencies import getEmailService
+from models.dashboard import Dashboard
 import logging
 from datetime import datetime
-from app.models.email import UpdateEmail
+from models.email import UpdateEmail
 router = APIRouter(
     prefix="/api",
     tags=["Manage email data"]

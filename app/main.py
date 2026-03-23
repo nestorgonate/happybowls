@@ -1,18 +1,18 @@
 from contextlib import asynccontextmanager
-from app.core import config
+from core import config
 from fastapi import FastAPI
 config.setupenv()
-from app.tasks.backgroundtask import StartScheduler
-from app.endpoints import agente
-from app.endpoints import dashboard
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from tasks.backgroundtask import StartScheduler
+from endpoints import agente
+from endpoints import dashboard
+from middleware.cors import CORSMiddleware
+from staticfiles import StaticFiles
+from responses import FileResponse
 from pathlib import Path
 import uvicorn
 import multiprocessing
 import logging
-from app.core.logs import setupLogs
+from core.logs import setupLogs
 setupLogs()
 logger = logging.getLogger("email_organizer")
 @asynccontextmanager

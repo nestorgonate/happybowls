@@ -1,6 +1,6 @@
-from app.core.database import Mongo
+from core.database import Mongo
 import logging
-from app.models.email import Email
+from models.email import Email
 from datetime import datetime, timedelta
 from bson import ObjectId
 class QuerySide():
