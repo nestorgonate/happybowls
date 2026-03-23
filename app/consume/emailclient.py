@@ -44,7 +44,7 @@ class EmailAPI():
             flow = InstalledAppFlow.from_client_config(client_config=client_config,
                                                                 scopes=self.SCOPES)
             flow.redirect_uri = os.getenv("REDIRECT_URI")
-            auth_url, _ = flow.authorization_url(access_type="offline", include_granted_scopes="true")
+            auth_url, _ = flow.authorization_url(access_type="offline", include_granted_scopes="true", prompt="consent")
             print(f"Login URL: \n{auth_url}")
             return None
         return self.credentials
