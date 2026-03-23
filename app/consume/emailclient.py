@@ -38,12 +38,12 @@ class EmailAPI():
                 "auth_uri": "https://accounts.google.com/o/oauth2/auth",
                 "token_uri": "https://oauth2.googleapis.com/token",
                 "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-                "redirect_uris": [os.getenv("URL")]
+                "redirect_uris": [os.getenv("REDIRECT_URI")]
                 }
             }
             flow = InstalledAppFlow.from_client_config(client_config=client_config,
                                                                 scopes=self.SCOPES)
-            flow.redirect_uri = os.getenv("URL")
+            flow.redirect_uri = os.getenv("REDIRECT_URI")
             auth_url, _ = flow.authorization_url(access_type="offline", include_granted_scopes="true")
             print(f"Login URL: \n{auth_url}")
             return None
