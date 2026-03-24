@@ -13,10 +13,10 @@ import multiprocessing
 import logging
 from core.logs import setupLogs
 from endpoints import emailclient
-import asyncio
 from core.dependencies import getLoadEmailService
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from datetime import datetime, timedelta, timezone
+from endpoints import autenticacion
 setupLogs()
 loadEmails = getLoadEmailService()
 logger = logging.getLogger("email_organizer")
@@ -41,6 +41,7 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(router=agente.router)
 app.include_router(router=dashboard.router)
 app.include_router(router=emailclient.router)
+app.include_router(router=autenticacion.router)
 app.mount("/", StaticFiles(directory=base_dir/"dist", html=True), name="assets")
 app.add_middleware(
     CORSMiddleware,

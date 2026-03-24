@@ -4,9 +4,11 @@ from models.dashboard import Dashboard
 import logging
 from datetime import datetime
 from models.email import UpdateEmail
+from middleware.validar_cookies import cookie_validator
 router = APIRouter(
     prefix="/api",
-    tags=["Manage email data"]
+    tags=["Manage email data"],
+    dependencies=[Depends(cookie_validator)]
 )
 logger = logging.getLogger("email_organizer")
 @router.post("/emails")
@@ -47,3 +49,7 @@ async def updateEmails(email_id: str, data: UpdateEmail, email_service = Depends
     if result.modified_count == 0:
         return {"message": "No updated since data is the same"}
     return {"data": "Update completed successfully"}
+
+@router.get("/check")
+async def check():
+    return {"data":"You are log in"}

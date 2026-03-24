@@ -1,9 +1,11 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from google.api_core import exceptions
 from core.dependencies import getEmailService
+from middleware.validar_cookies import cookie_validator
 router = APIRouter(
     prefix="/api",
-    tags=["Gemini endpoints"]
+    tags=["Gemini endpoints"],
+    dependencies=[Depends(cookie_validator)]
 )
 @router.post("/question")
 async def input_to_gemini(input: str, email_service=Depends(getEmailService)):
