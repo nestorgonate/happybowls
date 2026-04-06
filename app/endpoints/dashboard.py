@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException, Depends
-from core.dependencies import getEmailService
+from fastapi import APIRouter, HTTPException, status, Depends
+from core.dependencies import getEmailService, getLoadEmailService
 from models.dashboard import Dashboard
 import logging
 from datetime import datetime
@@ -53,3 +53,11 @@ async def updateEmails(email_id: str, data: UpdateEmail, email_service = Depends
 @router.get("/check")
 async def check():
     return {"data":"You are log in"}
+
+@router.post("/emails/refresh")
+async def refresh_dashboard(load_emails = Depends(getLoadEmailService)):
+    try:
+        await load_emails.checkEmails()
+        return {"data":"Emails loaded"}
+    except Exception as error:
+        return HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Can not load new emails: {error}")
